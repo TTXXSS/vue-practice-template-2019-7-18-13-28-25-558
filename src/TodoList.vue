@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Body></Body>
-    <Footer></Footer>
+    <Body @push="getList" v-bind:state="state" class="myBody"></Body>
+    <Footer v-bind:footList="mainlist" @push="getState"></Footer>
   </div>
 </template>
 
@@ -15,7 +15,8 @@ export default {
   name: 'app',
   data(){
     return{
-      mainlist:[]
+      mainlist:[],
+      state:'all'
     }
   },
   components: {
@@ -24,12 +25,17 @@ export default {
     Footer
   },
   methods:{
- 
+    getList:function(list){
+      this.mainlist=list;
+      //window.console.log(list[0].value);
+    },
+    getState:function(state){
+      this.state=state;
+      window.console.log(state);
+    }
     
-  },
-  props:{
-    type:Array,
-    default:()=> []
+    
+    
   }
 }
 </script>
@@ -42,5 +48,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+ .myBody{
+    font: normal normal 13px/16px "Open Sans", sans-serif;
 }
 </style>

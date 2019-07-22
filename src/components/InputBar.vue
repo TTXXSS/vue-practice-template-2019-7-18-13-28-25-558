@@ -1,7 +1,7 @@
 <template>
 <div>
-  <input type="text" v-model="value" @keydown.enter="handleClickAdd">
-  <input type="button" value="add" @click="handleClickAdd"><br>
+  <input type="text"  v-model="value" @keydown.enter="handleClickAdd">
+  <input type="button" class="buttonClass" value="add" @click="handleClickAdd"><br>
 </div>
 </template>
 
@@ -40,5 +40,13 @@ export default {
 }
 .buttonClass{
     background-color: rosybrown;
+}
+.input-text{
+    width: 70%;
+}
+
+input{
+    padding: 4px 15px 4px 0;
+    
 }
 </style>

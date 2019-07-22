@@ -1,7 +1,7 @@
 <template>
   <div >
       <InputBar @push="onPushToDoItem" ></InputBar>
-      <ListContainer v-bind:list="list"></ListContainer>
+      <ListContainer v-bind:list="list" v-bind:state="state" @push="onPushToDoItem"></ListContainer>
   </div>
 </template>
 
@@ -21,6 +21,9 @@ export default {
       list: []
     };
   },
+    props:{
+      state:{type:String,default:''}
+  },
   components: {
     InputBar,
     ListContainer
@@ -28,13 +31,13 @@ export default {
   methods: {
     onPushToDoItem(payLoad) {
       this.list.push({ finished: false, value: payLoad, id: getId() });
-    }
-  },
-  props:{
-        mainList:{
-          type:Array,
-          default:()=>[]
-      }
+      this.onPushToDoList(this.list);
+    },
+    onPushToDoList(list){
+        this.list=list;
+        this.$emit("push",list);
+    },
+
   }
 };
 </script>
@@ -47,5 +50,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+ body{
+    font: normal normal 13px/16px "Open Sans", sans-serif;
 }
 </style>
