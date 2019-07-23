@@ -1,31 +1,12 @@
 <template>
   <div >
-    <div v-for="index in list" :key="index">
-      <ul v-if="state==='all'">
-      <li >
-        <input type="checkbox" v-model="index.finished">
-        <span id="myspan" contenteditable="Contenteditable" @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index.id)">
-        {{index.value}}
-         </span>
-      </li>
-      </ul>
-      <ul v-else-if="state==='complete'&&index.finished===true">
-      <li >
-        <input type="checkbox" v-model="index.finished">
-        <span id="myspan" contenteditable="Contenteditable" @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index.id)">
-          {{index.value}}
-           </span>
-      </li>
-      </ul>
-      <ul v-else-if="state==='active'&&index.finished===false">
-      <li >
-        <input type="checkbox" v-model="index.finished">
-        <span id="myspan" contenteditable="Contenteditable" @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index.id)">
-         {{index.value}}
-         </span>
-      </li>
-      </ul>
-    </div>
+     <ol>
+       <li v-for="item in itemList" v-bind:key="item.id">
+        <input type = "checkbox" v-model="item.finished">
+        <span :contenteditable="isContentEditable" @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,item.id)">{{item.value}}</span>
+       </li>
+     </ol>
+    
   </div>
 </template>
 
@@ -36,11 +17,11 @@ export default {
      data() {
       return {
         itemList: [],
-        Contenteditable: false,
+        isContentEditable: false,
         text: ''
       };
   },
-  components: {
+    components: {
    
   },
   props:{
@@ -63,8 +44,43 @@ export default {
     onPushToDoList(list){
         this.$emit("push",list);
     }
+  },
+  mounted() {
+    this.itemList = this.$store.getters.getListItem;
+  },
+  computed:{
+  //  getListItem:function(){
+  //        return this.$store.getters.getListItem();
+  //    },
+  //    getStatus:function(){
+  //      return this.$store.getters.getStatus();
+  //    },
+    // filterListItem(){
+    //   let status = this.$store.state.status;
+    //   if(status==='all')
+    //   return this.$store.getters.getListItem();
+    //   else if(status==='complete')
+    //   return this.$store.getters.getListItem().filter(i=>i.finished===true);
+    //   else 
+    //   return this.$store.getters.getListItem().filter(i=>i.finished===false);
+    // }
+  },
+  watch: {
+    '$store.state.status'(newValue) {
+      let status = newValue;
+       window.console.log(newValue)
+       //window.console.log(this.itemList)
+      if(status==='all')
+       this.itemList = this.$store.getters.getListItem();
+      else if(status==='complete')
+      this.itemList = this.$store.getters.getListItem().filter(i=>i.finished===true);
+      else 
+      this.itemList = this.$store.getters.getListItem().filter(i=>i.finished===false);
+    },
+    '$store.state.listItem'(newValue) {
+      this.itemList = newValue
+    },
   }
-
 }
 </script>
 

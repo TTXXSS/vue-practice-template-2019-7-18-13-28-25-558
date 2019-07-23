@@ -32,6 +32,7 @@ export default {
     onPushToDoItem(payLoad) {
       this.list.push({ finished: false, value: payLoad, id: getId() });
       this.onPushToDoList(this.list);
+      this.$store.commit("updateListItem",this.list);
     },
     onPushToDoList(list){
         this.list=list;

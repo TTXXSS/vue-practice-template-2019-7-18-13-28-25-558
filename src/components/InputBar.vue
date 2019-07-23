@@ -1,7 +1,7 @@
 <template>
 <div>
-  <input type="text"  v-model="value" @keydown.enter="handleClickAdd">
-  <input type="button" class="buttonClass" value="add" @click="handleClickAdd"><br>
+  <input type="text"  v-model="value"   @keydown.enter="getListItem">
+  <input type="button" class="buttonClass" value="add" @click="getListItem"><br>
 </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   components: {
   },
   methods:{
-      handleClickAdd:function(){
+      getListItem:function(){
         this.$emit('push',this.value);
         this.value='';
       }

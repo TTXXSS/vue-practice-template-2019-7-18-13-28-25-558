@@ -27,15 +27,15 @@ export default {
   methods:{
     activeEvent:function(){
        this.state="active";
-       this.$emit("push",this.state);
+       this.$store.commit("updateCountNumber",this.state);
     },
     allEvent:function(){
       this.state="all";
-      this.$emit("push",this.state);
+      this.$store.commit("updateCountNumber",this.state);
     },
     completeEvent:function(){
        this.state="complete";
-      this.$emit("push",this.state);
+      this.$store.commit("updateCountNumber",this.state);
     }
   }
 }
