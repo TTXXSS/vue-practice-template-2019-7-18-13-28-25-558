@@ -4,7 +4,7 @@
       <ul v-if="state==='all'">
       <li >
         <input type="checkbox" v-model="index.finished">
-        <span id="myspan" contenteditable=Contenteditable @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index)">
+        <span id="myspan" contenteditable="Contenteditable" @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index.id)">
         {{index.value}}
          </span>
       </li>
@@ -12,7 +12,7 @@
       <ul v-else-if="state==='complete'&&index.finished===true">
       <li >
         <input type="checkbox" v-model="index.finished">
-        <span id="myspan" contenteditable=Contenteditable @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index)">
+        <span id="myspan" contenteditable="Contenteditable" @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index.id)">
           {{index.value}}
            </span>
       </li>
@@ -20,7 +20,7 @@
       <ul v-else-if="state==='active'&&index.finished===false">
       <li >
         <input type="checkbox" v-model="index.finished">
-        <span id="myspan" contenteditable=Contenteditable @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index)">
+        <span id="myspan" contenteditable="Contenteditable" @dblclick="changestatus" @keydown.enter.prevent="handleChange($event,index.id)">
          {{index.value}}
          </span>
       </li>
@@ -53,7 +53,7 @@ export default {
   },
   methods:{
     changestatus(){
-      document.getElementById("myspan").isContentEditable=true;
+      this.Contenteditable=true;
     },
     handleChange(event,index){
       this.isContenteditable = false;
